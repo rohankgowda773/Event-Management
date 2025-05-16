@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>Upcoming Events</h2>
+    <div *ngIf="events.length; else noEvents">
+      <div class="event" *ngFor="let event of events">
+        <h3>{{ event.title }}</h3>
+        <div class="location">{{ event.location }}</div>
+        <div class="datetime">{{ event.eventDateTime | date:'fullDate' }} {{ event.eventDateTime | date:'shortTime' }}</div>
+        <p>{{ event.description }}</p>
+      </div>
+    </div>
+    <ng-template #noEvents>
+      <p>No upcoming events available.</p>
+    </ng-template>
+  </div>
+  

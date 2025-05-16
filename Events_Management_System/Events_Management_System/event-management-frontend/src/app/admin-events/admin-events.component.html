@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Admin Event Management</h2>
+    <button (click)="startCreate()" *ngIf="!editingEvent">Create New Event</button>
+  
+    <form *ngIf="editingEvent" #eventForm="ngForm" (ngSubmit)="save(eventForm)">
+      <label>Title:</label>
+      <input type="text" required [(ngModel)]="editingEvent.title" name="title">
+  
+      <label>Description:</label>
+      <textarea rows="3" [(ngModel)]="editingEvent.description" name="description"></textarea>
+  
+      <label>Location:</label>
+      <input type="text" [(ngModel)]="editingEvent.location" name="location">
+  
+      <label>Date and Time:</label>
+      <input type="datetime-local" [(ngModel)]="editingEvent.eventDateTime" name="eventDateTime" required>
+  
+      <label><input type="checkbox" [(ngModel)]="editingEvent.active" name="active"> Active</label><br>
+  
+      <button type="submit" class="save-btn" [disabled]="!eventForm.form.valid">Save</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </form>
+  
+    <table *ngIf="events.length && !editingEvent">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Date & Time</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.eventDateTime | date:'short' }}</td>
+          <td>{{ event.active ? 'Yes' : 'No' }}</td>
+          <td>
+            <button class="edit-btn" (click)="startEdit(event)">Edit</button>
+            <button class="delete-btn" (click)="deleteEvent(event.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="!events.length">No events found.</p>
+  </div>
+  

@@ -1,0 +1,57 @@
+<div class="auth-container">
+  <div class="auth-content">
+    <div class="auth-image">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Event Management">
+    </div>
+    <div class="auth-card">
+      <h2>Welcome Back</h2>
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+            required
+            #usernameInput="ngModel"
+            [disabled]="isLoading"
+            placeholder="Enter your username"
+          >
+          <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="error">
+            Username is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            #passwordInput="ngModel"
+            [disabled]="isLoading"
+            placeholder="Enter your password"
+          >
+          <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error">
+            Password is required
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="!loginForm.form.valid || isLoading" class="login-button">
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading" class="loading-spinner"></span>
+        </button>
+        
+        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+        
+        <div class="auth-links">
+          <p>Don't have an account? <a routerLink="/register">Register</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
